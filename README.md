@@ -997,78 +997,149 @@ g.addEdge(6, 3);
 7. 7
 ```
 
-1. Вывод графа
+10. Вершины, достижимые за 2 хода
+
+Повторим граф, нарисованный ранее
+
+```mermaid
+graph LR
+    A((1))-->D((4))
+    B((2))-->D
+    C((3))-->D
+    D-->E((5))
+    D-->F((6))
+    E-->G((7))
+    E-->A
+    G-->F
+    F-->C
+```
 
 - Input:
 ```
 DirectedGraph g = new DirectedGraph();
-g.addEdge(1,2);
-g.addEdge(1,3);
-g.addEdge(2,4);
- g.addEdge(3,4);
-out.println(g);
+g.addEdge(1, 4);
+g.addEdge(2, 4);
+g.addEdge(3, 4);
+g.addEdge(4, 5);
+g.addEdge(4, 6);
+g.addEdge(5, 7);
+g.addEdge(5, 1);
+g.addEdge(7, 6);
+g.addEdge(6, 3);
+int[] n = g.verticesWithinTwoSteps(1);
+for (int x : n)
+    out.print(x + " ");
 ```
 - Output:
 ```
-1. From 1 -> To 2
-2. From 1 -> To 3
-3. From 2 -> To 4
-4. From 3 -> To 4
+5 6 
 ```
 
-1. Вывод графа
+11. Вершины, достижимые за n ходов
 
 - Input:
 ```
 DirectedGraph g = new DirectedGraph();
-g.addEdge(1,2);
-g.addEdge(1,3);
-g.addEdge(2,4);
- g.addEdge(3,4);
-out.println(g);
+g.addEdge(1, 4);
+g.addEdge(2, 4);
+g.addEdge(3, 4);
+g.addEdge(4, 5);
+g.addEdge(4, 6);
+g.addEdge(5, 7);
+g.addEdge(5, 1);
+g.addEdge(7, 6);
+g.addEdge(6, 3);
+int[] n = g.verticesWithinNSteps(1, 2);
+for (int x : n)
+out.print(x + " ");
+out.println();
+n = g.verticesWithinNSteps(1, 3);
+for (int x : n)
+out.print(x + " ");
+out.println();
+n = g.verticesWithinNSteps(1, 1);
+for (int x : n)
+out.print(x + " ");
 ```
 - Output:
 ```
-1. From 1 -> To 2
-2. From 1 -> To 3
-3. From 2 -> To 4
-4. From 3 -> To 4
+5 6 
+7 1 3 
+4 
 ```
 
-1. Вывод графа
+12. Сложение двух графов
+
+Сложим два подобных графа, с разницей в том,
+что все рёбра будут иметь разное направление
 
 - Input:
 ```
 DirectedGraph g = new DirectedGraph();
-g.addEdge(1,2);
-g.addEdge(1,3);
-g.addEdge(2,4);
- g.addEdge(3,4);
+g.addEdge(1, 4);
+g.addEdge(2, 4);
+g.addEdge(3, 4);
+g.addEdge(4, 5);
+g.addEdge(4, 6);
+g.addEdge(5, 7);
+g.addEdge(5, 1);
+g.addEdge(7, 6);
+g.addEdge(6, 3);
+DirectedGraph g1 = new DirectedGraph();
+g1.addEdge(4, 1);
+g1.addEdge(4, 2);
+g1.addEdge(4, 3);
+g1.addEdge(5, 4);
+g1.addEdge(6, 4);
+g1.addEdge(7, 5);
+g1.addEdge(1, 5);
+g1.addEdge(6, 7);
+g1.addEdge(3, 6);
+
 out.println(g);
+out.println(g1);
+
+DirectedGraph g2 = g.plus(g1);
+out.println(g2);
 ```
 - Output:
 ```
-1. From 1 -> To 2
-2. From 1 -> To 3
-3. From 2 -> To 4
-4. From 3 -> To 4
-```
+1. From 1 -> To 4
+2. From 2 -> To 4
+3. From 3 -> To 4
+4. From 4 -> To 5
+5. From 4 -> To 6
+6. From 5 -> To 7
+7. From 5 -> To 1
+8. From 7 -> To 6
+9. From 6 -> To 3
 
-1. Вывод графа
+1. From 4 -> To 1
+2. From 4 -> To 2
+3. From 4 -> To 3
+4. From 5 -> To 4
+5. From 6 -> To 4
+6. From 7 -> To 5
+7. From 1 -> To 5
+8. From 6 -> To 7
+9. From 3 -> To 6
 
-- Input:
-```
-DirectedGraph g = new DirectedGraph();
-g.addEdge(1,2);
-g.addEdge(1,3);
-g.addEdge(2,4);
- g.addEdge(3,4);
-out.println(g);
-```
-- Output:
-```
-1. From 1 -> To 2
-2. From 1 -> To 3
-3. From 2 -> To 4
-4. From 3 -> To 4
+1. From 1 -> To 4
+2. From 2 -> To 4
+3. From 3 -> To 4
+4. From 4 -> To 5
+5. From 4 -> To 6
+6. From 5 -> To 7
+7. From 5 -> To 1
+8. From 7 -> To 6
+9. From 6 -> To 3
+10. From 4 -> To 1
+11. From 4 -> To 2
+12. From 4 -> To 3
+13. From 5 -> To 4
+14. From 6 -> To 4
+15. From 7 -> To 5
+16. From 1 -> To 5
+17. From 6 -> To 7
+18. From 3 -> To 6
 ```
