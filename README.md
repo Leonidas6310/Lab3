@@ -519,6 +519,10 @@ public class DirectedGraph {
             // Создаём массив, который будет соотносить вершину и
             // разность (по модулю) между входящими и исходящими рёбрами
             int[] verticesDegreeDifference = new int[currentVertices];
+            // Создаём копию массива вершин, т.к. в будущем их придётся удалять
+            int[] verticesCopy = new int[currentVertices];
+            for (int i = 0; i < currentVertices; ++i)
+                verticesCopy[i] = vertices[i].vertexId;
             // Параллельно с этими значениями, будем вычислять минимальную разность
             int minDifference = -1;
             for (int i = 0; i < currentVertices; ++i) {
@@ -537,16 +541,9 @@ public class DirectedGraph {
                 }
             }
 
-            // Удаляем вершины: аналогично, т.к. число вершин меняется, то
-            // нельзя использовать цикл for
-            int indexToDelete = 0;
-            while (indexToDelete != currentVertices) {
-                if (verticesDegreeDifference[indexToDelete] == minDifference) {
-                    this.deleteVertex(vertices[indexToDelete].vertexId);
-                }
-                else
-                    ++indexToDelete;
-            }
+            for (int indexToDelete = 0; indexToDelete < currentVertices; ++indexToDelete)
+                if (verticesDegreeDifference[indexToDelete] == minDifference)
+                    this.deleteVertex(verticesCopy[indexToDelete]);
 
             deleted = true;
         }
