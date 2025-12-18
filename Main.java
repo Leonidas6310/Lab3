@@ -165,11 +165,68 @@ public class Main {
             g.addEdge(5, 1);
             g.addEdge(7, 6);
             g.addEdge(6, 3);
+            int[] n = g.verticesWithinTwoSteps(1);
+            for (int x : n)
+                out.print(x + " ");
+            out.println();
+        }
+
+        // Test 11
+        {
+            out.println("Test 11");
+            DirectedGraph g = new DirectedGraph();
+            g.addEdge(1, 4);
+            g.addEdge(2, 4);
+            g.addEdge(3, 4);
+            g.addEdge(4, 5);
+            g.addEdge(4, 6);
+            g.addEdge(5, 7);
+            g.addEdge(5, 1);
+            g.addEdge(7, 6);
+            g.addEdge(6, 3);
+            int[] n = g.verticesWithinNSteps(1, 2);
+            for (int x : n)
+                out.print(x + " ");
+            out.println();
+            n = g.verticesWithinNSteps(1, 3);
+            for (int x : n)
+                out.print(x + " ");
+            out.println();
+            n = g.verticesWithinNSteps(1, 1);
+            for (int x : n)
+                out.print(x + " ");
+            out.println();
+        }
+
+        // Test 12
+        {
+            out.println("Test 12");
+            DirectedGraph g = new DirectedGraph();
+            g.addEdge(1, 4);
+            g.addEdge(2, 4);
+            g.addEdge(3, 4);
+            g.addEdge(4, 5);
+            g.addEdge(4, 6);
+            g.addEdge(5, 7);
+            g.addEdge(5, 1);
+            g.addEdge(7, 6);
+            g.addEdge(6, 3);
+            DirectedGraph g1 = new DirectedGraph();
+            g1.addEdge(4, 1);
+            g1.addEdge(4, 2);
+            g1.addEdge(4, 3);
+            g1.addEdge(5, 4);
+            g1.addEdge(6, 4);
+            g1.addEdge(7, 5);
+            g1.addEdge(1, 5);
+            g1.addEdge(6, 7);
+            g1.addEdge(3, 6);
+
             out.println(g);
-            g.printVertices();
-            g.deleteVerticesWithMinDegreeDifference();
-            out.println(g);
-            g.printVertices();
+            out.println(g1);
+
+            DirectedGraph g2 = g.plus(g1);
+            out.println(g2);
         }
     }
 }
